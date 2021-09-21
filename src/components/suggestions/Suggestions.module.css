@@ -24,6 +24,12 @@
     outline: none;
 }
 
+.nodata:hover,
+.nodata:focus {
+    background-color: inherit;
+    cursor: initial;
+}
+
 .nrResuts {
     margin-left: 6px;
     flex: 1;

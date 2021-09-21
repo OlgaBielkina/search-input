@@ -14,14 +14,14 @@ export interface SearchInputProps {
 export const SearchInput: React.FC<SearchInputProps> = ({ onChange, onSelect, placeholder = 'Zoeken' }) => {
     const ref = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState<string>('');
-    const { data, refetch, isError, isFetched } = useSearch(value, {
+    const { data, refetch, isError, isFetched, isLoading } = useSearch(value, {
         enabled: false,
     });
-    const debouncedRefetch = useDebouncedCallback(refetch, 1000, { leading: true });
+    const debouncedRefetch = useDebouncedCallback(refetch, 300, { leading: true });
 
     // filtering should be done on a server side. This part of code is for demo purpose only
     let suggestions = data ? data.suggestions : [];
-    if (data) {
+    if (data && isFetched) {
         suggestions = suggestions.filter((suggestion) => suggestion.searchterm.indexOf(value) !== -1);
     }
 
