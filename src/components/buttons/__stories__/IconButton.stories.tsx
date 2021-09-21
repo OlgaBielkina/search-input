@@ -4,15 +4,19 @@ import { IconButton, IconButtonProps } from '../IconButton';
 
 export default {
     title: 'Components/IconButton',
+    description: 'Button that contains only icon from google material UI',
     component: IconButton,
     argTypes: {
-        onClick: { action: 'onClick' },
+        onClick: { description: 'Callback function for handling button clicks', action: 'onClick' },
         name: {
             description: 'Name of the icon from google material UI',
             control: {
                 type: 'select',
                 options: ['clear', 'search'],
             },
+        },
+        style: {
+            description: 'Css class to override default styling of the button',
         },
     },
     args: {

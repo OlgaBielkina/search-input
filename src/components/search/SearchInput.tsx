@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import { useSearch } from '../../hooks/useSearch';
 import { Suggestions } from '../suggestions/Suggestions';
 import { IconButton } from '../buttons/IconButton';
 import styles from './SearchInput.module.css';
-import { transformFile } from '@babel/core';
 
 export interface SearchInputProps {
     onChange?: (value: string) => void;
@@ -14,9 +14,20 @@ export interface SearchInputProps {
 export const SearchInput: React.FC<SearchInputProps> = ({ onChange, onSelect, placeholder = 'Zoeken' }) => {
     const ref = useRef<HTMLInputElement | null>(null);
     const [value, setValue] = useState<string>('');
-    const { data, refetch } = useSearch(value, {
+    const { data, refetch, isError, isFetched } = useSearch(value, {
         enabled: false,
     });
+    const debouncedRefetch = useDebouncedCallback(refetch, 1000, { leading: true });
+
+    // filtering should be done on a server side. This part of code is for demo purpose only
+    let suggestions = data ? data.suggestions : [];
+    if (data) {
+        suggestions = suggestions.filter((suggestion) => suggestion.searchterm.indexOf(value) !== -1);
+    }
+
+    if (isError) {
+        console.error('API failed to fetch data. Report error.');
+    }
 
     const selectSuggetion = useCallback((suggestion: string) => {
         console.log('chosen element - ', suggestion);
@@ -58,9 +69,9 @@ export const SearchInput: React.FC<SearchInputProps> = ({ onChange, onSelect, pl
 
     useEffect(() => {
         if (value.length >= 3) {
-            refetch();
+            debouncedRefetch();
         }
-    }, [value, refetch]);
+    }, [value, debouncedRefetch]);
 
     return (
         <div className={styles.container}>
@@ -85,8 +96,8 @@ export const SearchInput: React.FC<SearchInputProps> = ({ onChange, onSelect, pl
                     <IconButton name="search" style={styles.searchIcon} onClick={handleSelect} />
                 </div>
             </span>
-            {data && data.suggestions && (
-                <Suggestions suggestions={data.suggestions} searchTerm={value} onSuggestionSelect={selectSuggetion} />
+            {!isError && isFetched && (
+                <Suggestions suggestions={suggestions} searchTerm={value} onSuggestionSelect={selectSuggetion} />
             )}
         </div>
     );

@@ -8,13 +8,14 @@
     padding-top: 4px;
     box-shadow: 0 8px 6px -6px #aaa;
     max-height: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .suggestion {
     padding: 8px;
     cursor: pointer;
     display: flex;
+    align-items: baseline;
 }
 
 .suggestion:hover,
