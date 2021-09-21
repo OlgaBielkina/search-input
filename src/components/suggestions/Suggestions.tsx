@@ -21,7 +21,7 @@ export const Suggestions: React.FC<SuggestionsProps> = ({ suggestions, onSuggest
     return (
         <ul className={styles.suggestions}>
             {!suggestions.length && (
-                <li className={styles.suggestion}>
+                <li className={`${styles.suggestion} ${styles.nodata}`}>
                     <span>
                         <HighlightedTerm
                             text={`Sorry, no results for the search ${searchTerm}`}

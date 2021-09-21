@@ -10,6 +10,8 @@ export interface IconButtonProps {
 export const IconButton: React.FC<IconButtonProps> = ({ style, name, onClick }) => {
     const handleKeyPress = useCallback(
         (event: React.KeyboardEvent<HTMLSpanElement>) => {
+            event.stopPropagation();
+            event.preventDefault();
             if (event.charCode === 13) {
                 onClick();
             }
