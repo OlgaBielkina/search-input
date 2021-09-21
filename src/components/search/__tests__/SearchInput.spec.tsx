@@ -28,7 +28,7 @@ describe('SearchInput', () => {
         getByPlaceholderText('Search test');
     });
 
-    it('should start search only after the third character was enetered', () => {
+    it('should start search only after the third character was entered', () => {
         mockUseSearch.mockReturnValue(searchData);
         const { getByTestId } = render(<SearchInput {...props} />);
 
@@ -59,6 +59,7 @@ describe('SearchInput', () => {
 
     describe('when search button pressed', () => {
         it('should clear input', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');
@@ -71,6 +72,7 @@ describe('SearchInput', () => {
         });
 
         it('should call onChange callback', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');
@@ -83,6 +85,7 @@ describe('SearchInput', () => {
         });
 
         it('should handle keyboard enter', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');
@@ -98,6 +101,7 @@ describe('SearchInput', () => {
 
     describe('when search button pressed', () => {
         it('should clear input', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');
@@ -110,6 +114,7 @@ describe('SearchInput', () => {
         });
 
         it('should call onSelect callback', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');
@@ -122,6 +127,7 @@ describe('SearchInput', () => {
         });
 
         it('should handle keyboard enter', () => {
+            mockUseSearch.mockReturnValue(searchData);
             const { getByText, getByTestId } = render(<SearchInput {...props} />);
 
             const inputEl = getByTestId('search-input');

@@ -67,7 +67,11 @@ export const HighlightedTerm: React.FC<HighlightedTermProps> = ({
                     <HighlightedText
                         key={`${term.substr}${index}`}
                         text={term.substr}
-                        className={term.isSearchTerm ? `${styles.bold} ${hightLightedClassName}` : className}
+                        className={
+                            term.isSearchTerm
+                                ? `${styles.bold} ${hightLightedClassName}`
+                                : `${styles.text} ${className}`
+                        }
                     />
                 ),
             )}

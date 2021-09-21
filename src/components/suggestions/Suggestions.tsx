@@ -19,26 +19,36 @@ export const Suggestions: React.FC<SuggestionsProps> = ({ suggestions, onSuggest
     const handleClick = (suggestion: string) => () => onSuggestionSelect(suggestion);
 
     return (
-        <>
-            {suggestions.length && (
-                <ul className={styles.suggestions}>
-                    {suggestions.map(({ searchterm: suggestionTerm, nrResults }) => {
-                        return (
-                            <li
-                                data-testid={suggestionTerm}
-                                tabIndex={0}
-                                key={suggestionTerm}
-                                className={styles.suggestion}
-                                onClick={handleClick(suggestionTerm)}
-                                onKeyPress={handleSelectOption(suggestionTerm)}
-                            >
-                                <HighlightedTerm text={suggestionTerm} searchTerm={searchTerm} />
-                                <span className={styles.nrResuts}>({nrResults})</span>
-                            </li>
-                        );
-                    })}
-                </ul>
+        <ul className={styles.suggestions}>
+            {!suggestions.length && (
+                <li className={styles.suggestion}>
+                    <span>
+                        <HighlightedTerm
+                            text={`Sorry, no results for the search ${searchTerm}`}
+                            searchTerm={searchTerm}
+                        />
+                    </span>
+                </li>
             )}
-        </>
+            {!!suggestions.length &&
+                suggestions.map(({ searchterm: suggestionTerm, nrResults }) => {
+                    return (
+                        <li
+                            data-testid={suggestionTerm}
+                            tabIndex={0}
+                            role="button"
+                            key={suggestionTerm}
+                            className={styles.suggestion}
+                            onClick={handleClick(suggestionTerm)}
+                            onKeyPress={handleSelectOption(suggestionTerm)}
+                        >
+                            <span>
+                                <HighlightedTerm text={suggestionTerm} searchTerm={searchTerm} />
+                            </span>
+                            <span className={styles.nrResuts}>({nrResults})</span>
+                        </li>
+                    );
+                })}
+        </ul>
     );
 };
