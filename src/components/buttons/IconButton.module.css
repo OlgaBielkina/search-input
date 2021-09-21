@@ -1,0 +1,39 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+    color: #aaa;
+    background: none;
+}
+
+.icon {
+    transition: transform 0.3s;
+    transform: scale(0.9);
+    font-size: 1.5em;
+}
+
+.button:hover,
+.button:focus {
+    cursor: pointer;
+    outline: none;
+    color: #111;
+    border-color: #111;
+    background-color: #eee;
+}
+.button:active {
+    background-color: #ddd;
+}
+
+.button:hover .icon,
+.button:focus .icon {
+    transform: scale(1);
+}
+
+.button:active .icon {
+    transform: scale(0.9);
+}
